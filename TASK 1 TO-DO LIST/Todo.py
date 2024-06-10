@@ -56,7 +56,7 @@ frame.pack(pady=10)
 todo_entry = tk.Entry(frame, width=50)
 todo_entry.pack(side=tk.LEFT, padx=10)
 
-add_btn = tk.btn(frame, text="Add todo", command=add_todo)
+add_btn = tk.Button(frame, text="Add todo", command=add_todo)
 add_btn.pack(side=tk.LEFT)
 
 todo_listbox = tk.Listbox(root, width=70, height=15)
@@ -65,12 +65,12 @@ todo_listbox.pack(pady=20)
 btn_frame = tk.Frame(root)
 btn_frame.pack(pady=10)
 
-complete_btn = tk.btn(btn_frame, text="Complete todo", command=complete_todo)
+complete_btn = tk.Button(btn_frame, text="Complete todo", command=complete_todo)
 complete_btn.pack(side=tk.LEFT, padx=10)
 
-delete_btn = tk.btn(btn_frame, text="Delete todo", command=delete_todo)
+delete_btn = tk.Button(btn_frame, text="Delete todo", command=delete_todo)
 delete_btn.pack(side=tk.LEFT, padx=10)
 
-update_btn = tk.btn(btn_frame, text="Update todo", command=update_todo)
+update_btn = tk.Button(btn_frame, text="Update todo", command=update_todo)
 update_btn.pack(side=tk.LEFT, padx=10)
 root.mainloop()
