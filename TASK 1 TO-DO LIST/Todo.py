@@ -1,86 +1,76 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# Function for adding a task
-def add_task():
-    task = task_entry.get()
-    if task:
-        tasks.append({"task": task, "completed": False})
-        update_task_listbox()
-        task_entry.delete(0, tk.END)
+def add_todo():
+    todo = todo_entry.get()
+    if todo:
+        todos.append({"todo": todo, "completed": False})
+        update_todo_listbox()
+        todo_entry.delete(0, tk.END)
     else:
-        messagebox.showwarning("Input Error", "Please enter a task.")
+        messagebox.showwarning("Input Error", "Please enter a todo.")
 
-# Function to update the listbox with tasks
-def update_task_listbox():
-    task_listbox.delete(0, tk.END)
-    for idx, task in enumerate(tasks):
-        status = "Completed" if task["completed"] else "Not Completed"
-        task_listbox.insert(tk.END, f'{idx+1}. {task["task"]} - {status}')
+def update_todo_listbox():
+    todo_listbox.delete(0, tk.END)
+    for idx, todo in enumerate(todos):
+        status = "Completed" if todo["completed"] else "Not Completed"
+        todo_listbox.insert(tk.END, f'{idx+1}. {todo["todo"]} - {status}')
 
-# Function to mark a task as complete
-def complete_task():
+def complete_todo():
     try:
-        selected_task_index = task_listbox.curselection()[0]
-        tasks[selected_task_index]["completed"] = True
-        update_task_listbox()
+        selected_todo_index = todo_listbox.curselection()[0]
+        todos[selected_todo_index]["completed"] = True
+        update_todo_listbox()
     except IndexError:
-        messagebox.showwarning("Selection Error", "Please select a task to complete.")
-
-# Function to delete a task
-def delete_task():
+        messagebox.showwarning("Selection Error", "Please select a todo to complete.")
+        
+def delete_todo():
     try:
-        selected_task_index = task_listbox.curselection()[0]
-        del tasks[selected_task_index]
-        update_task_listbox()
+        selected_todo_index = todo_listbox.curselection()[0]
+        del todos[selected_todo_index]
+        update_todo_listbox()
     except IndexError:
-        messagebox.showwarning("Selection Error", "Please select a task to delete.")
+        messagebox.showwarning("Selection Error", "Please select a todo to delete.")
 
-# Function to update a task
-def update_task():
+def update_todo():
     try:
-        selected_task_index = task_listbox.curselection()[0]
-        new_task = task_entry.get()
-        if new_task:
-            tasks[selected_task_index]["task"] = new_task
-            update_task_listbox()
-            task_entry.delete(0, tk.END)
+        selected_todo_index = todo_listbox.curselection()[0]
+        new_todo = todo_entry.get()
+        if new_todo:
+            todos[selected_todo_index]["todo"] = new_todo
+            update_todo_listbox()
+            todo_entry.delete(0, tk.END)
         else:
-            messagebox.showwarning("Input Error", "Please enter a new task description.")
+            messagebox.showwarning("Input Error", "Please enter a new todo description.")
     except IndexError:
-        messagebox.showwarning("Selection Error", "Please select a task to update.")
+        messagebox.showwarning("Selection Error", "Please select a todo to update.")
 
-# Initialize the main window
 root = tk.Tk()
 root.title("To-Do List Application")
 
-# Initialize the task list
-tasks = []
+todos = []
 
-# Create and place widgets
 frame = tk.Frame(root)
 frame.pack(pady=10)
 
-task_entry = tk.Entry(frame, width=50)
-task_entry.pack(side=tk.LEFT, padx=10)
+todo_entry = tk.Entry(frame, width=50)
+todo_entry.pack(side=tk.LEFT, padx=10)
 
-add_button = tk.Button(frame, text="Add Task", command=add_task)
-add_button.pack(side=tk.LEFT)
+add_btn = tk.btn(frame, text="Add todo", command=add_todo)
+add_btn.pack(side=tk.LEFT)
 
-task_listbox = tk.Listbox(root, width=70, height=15)
-task_listbox.pack(pady=20)
+todo_listbox = tk.Listbox(root, width=70, height=15)
+todo_listbox.pack(pady=20)
 
-button_frame = tk.Frame(root)
-button_frame.pack(pady=10)
+btn_frame = tk.Frame(root)
+btn_frame.pack(pady=10)
 
-complete_button = tk.Button(button_frame, text="Complete Task", command=complete_task)
-complete_button.pack(side=tk.LEFT, padx=10)
+complete_btn = tk.btn(btn_frame, text="Complete todo", command=complete_todo)
+complete_btn.pack(side=tk.LEFT, padx=10)
 
-delete_button = tk.Button(button_frame, text="Delete Task", command=delete_task)
-delete_button.pack(side=tk.LEFT, padx=10)
+delete_btn = tk.btn(btn_frame, text="Delete todo", command=delete_todo)
+delete_btn.pack(side=tk.LEFT, padx=10)
 
-update_button = tk.Button(button_frame, text="Update Task", command=update_task)
-update_button.pack(side=tk.LEFT, padx=10)
-
-# Run the application
+update_btn = tk.btn(btn_frame, text="Update todo", command=update_todo)
+update_btn.pack(side=tk.LEFT, padx=10)
 root.mainloop()
